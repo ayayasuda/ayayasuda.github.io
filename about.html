@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — 言葉と写真</title>
+<meta name="description" content="写真家・文筆家 山田静のプロフィール">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ---- ABOUT HERO ---- */
+.about-hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.about-hero-visual {
+  background: var(--ink); position: relative; overflow: hidden;
+}
+.about-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 70% at 50% 60%, #3d3428 0%, transparent 65%),
+    linear-gradient(160deg, #1a1510 0%, #251e16 50%, #1a1510 100%);
+}
+.about-hero-text-art {
+  position: absolute; bottom: 60px; left: 60px;
+  font-family: var(--font-jp); font-size: 15px;
+  color: rgba(245,240,232,0.25); line-height: 2.4;
+  writing-mode: vertical-rl; text-orientation: mixed;
+}
+.about-hero-circle {
+  position: absolute;
+  border-radius: 50%; border: 1px solid var(--gold);
+  animation: breathe 10s ease-in-out infinite;
+}
+.about-hero-circle:nth-child(3) {
+  width: 340px; height: 340px; top: 25%; left: 10%; opacity: 0.08;
+}
+.about-hero-circle:nth-child(4) {
+  width: 160px; height: 160px; top: 55%; left: 50%;
+  opacity: 0.05; animation-delay: 3s;
+}
+@keyframes breathe {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+.about-hero-content {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 80px 80px;
+}
+.about-eyebrow {
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.5em; color: var(--gold); margin-bottom: 32px;
+  animation: slideUp 1s ease 0.3s both;
+}
+.about-name-jp {
+  font-family: var(--font-jp); font-size: 56px; font-weight: 400;
+  line-height: 1.1; animation: slideUp 1s ease 0.5s both;
+}
+.about-name-en {
+  font-family: var(--font-en); font-style: italic;
+  font-size: 16px; letter-spacing: 0.3em; color: var(--gold);
+  display: block; margin-top: 14px;
+  animation: slideUp 1s ease 0.6s both;
+}
+.about-tagline {
+  font-size: 13px; line-height: 2.4; color: var(--ink-light);
+  border-left: 1px solid var(--gold); padding-left: 24px;
+  margin-top: 40px; max-width: 340px;
+  animation: slideUp 1s ease 0.8s both;
+}
+
+/* ---- BIO SECTION ---- */
+.bio-section { padding: 120px 0; position: relative; z-index: 2; }
+.bio-grid {
+  max-width: 1000px; margin: 0 auto; padding: 0 80px;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 80px;
+}
+.bio-sidebar {}
+.bio-sidebar-label {
+  font-family: var(--font-en); font-size: 10px;
+  letter-spacing: 0.5em; color: var(--gold);
+  margin-bottom: 40px; display: block;
+}
+.bio-info-row { margin-bottom: 32px; }
+.bio-info-key {
+  font-family: var(--font-en); font-size: 10px;
+  letter-spacing: 0.4em; color: var(--gold); opacity: 0.6;
+  display: block; margin-bottom: 6px;
+}
+.bio-info-val {
+  font-family: var(--font-jp); font-size: 14px;
+  line-height: 1.8; color: var(--ink);
+}
+
+.bio-main {}
+.bio-text {
+  font-size: 15px; line-height: 2.8; color: var(--ink-light);
+}
+.bio-text p + p { margin-top: 36px; }
+
+/* ---- STATEMENT ---- */
+.statement-section {
+  background: var(--ink); padding: 120px 0;
+  position: relative; z-index: 2; overflow: hidden;
+}
+.statement-section::before {
+  content: '写'; position: absolute; right: -30px; top: -80px;
+  font-family: var(--font-jp); font-size: 500px;
+  color: rgba(255,255,255,0.02); line-height: 1; user-select: none;
+}
+.statement-inner {
+  max-width: 700px; margin: 0 auto; padding: 0 80px; position: relative; z-index: 2;
+}
+.statement-label {
+  font-family: var(--font-en); font-size: 10px;
+  letter-spacing: 0.5em; color: var(--gold); margin-bottom: 48px;
+}
+.statement-text {
+  font-family: var(--font-jp); font-size: 22px; font-weight: 300;
+  color: var(--washi); line-height: 2.4;
+}
+.statement-text em {
+  font-style: normal; color: var(--gold);
+}
+
+@keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="v-line"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">言葉と写真<span>—</span>Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="works.html">Works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<!-- ABOUT HERO -->
+<section class="about-hero">
+  <div class="about-hero-visual">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-circle"></div>
+    <div class="about-hero-circle"></div>
+    <div class="about-hero-text-art">
+      光と影の間に<br>私の言葉は宿る<br>シャッターと<br>ペンの間に<br>私の世界がある
+    </div>
+  </div>
+  <div class="about-hero-content">
+    <div class="about-eyebrow">PHOTOGRAPHER × WRITER</div>
+    <h1>
+      <span class="about-name-jp">山田 静</span>
+      <span class="about-name-en">Shizuka Yamada</span>
+    </h1>
+    <p class="about-tagline">
+      写真家、そして言葉を書く人。<br>
+      日常の中に潜む「瞬間の詩」を求めて、<br>
+      カメラと手帳を携えて歩いている。
+    </p>
+  </div>
+</section>
+
+<!-- BIO -->
+<section class="bio-section">
+  <div class="bio-grid">
+    <div class="bio-sidebar reveal">
+      <span class="bio-sidebar-label">PROFILE</span>
+      <div class="bio-info-row">
+        <span class="bio-info-key">BASED IN</span>
+        <span class="bio-info-val">東京・京都</span>
+      </div>
+      <div class="bio-info-row">
+        <span class="bio-info-key">WORKS</span>
+        <span class="bio-info-val">Essay<br>Column<br>Photo Essay</span>
+      </div>
+      <div class="bio-info-row">
+        <span class="bio-info-key">CAMERA</span>
+        <span class="bio-info-val">Leica M6<br>Rolleiflex</span>
+      </div>
+      <div class="bio-info-row">
+        <span class="bio-info-key">CONTACT</span>
+        <span class="bio-info-val">hello@kotobatoshashin.jp</span>
+      </div>
+    </div>
+
+    <div class="bio-main reveal stagger-2">
+      <div class="bio-text">
+        <p>写真家、そして言葉を書く人。</p>
+        <p>大学で文学を学んだのち、ある旅先でカメラと出会う。光と影が地面に溶け込む夕暮れどき、雨粒が窓ガラスを伝う静かな朝——そういった「ことば以前の瞬間」を撮るために、シャッターを押し続けるようになった。</p>
+        <p>写真と文章は、私にとって同じひとつの行為だ。世界を見て、感じて、残す。その繰り返しの中に、私が在る。写真は一瞬を止め、言葉は一瞬を動かす。その緊張の間に、私は立っている。</p>
+        <p>現在は東京と京都を行き来しながら、日々の観察と記録を続けている。雑誌や書籍への寄稿のほか、このポートフォリオサイトでエッセイとコラムを不定期に公開している。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement-section">
+  <div class="statement-inner">
+    <div class="statement-label reveal">STATEMENT</div>
+    <p class="statement-text reveal stagger-1">
+      光が地面に<em>倒れる瞬間</em>がある。<br>
+      言葉が胸に<em>落ちてくる瞬間</em>がある。<br><br>
+      その二つは、私の中では<em>同じこと</em>だ。<br>
+      世界と私の間に生まれる、<br>
+      小さくて確かな<em>出来事</em>を、<br>
+      私はただ丁寧に、拾い続けたい。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">言葉と写真</div>
+  <div class="footer-copy">© 2024 Shizuka Yamada. All rights reserved.</div>
+</footer>
+
+<script src="js/articles.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

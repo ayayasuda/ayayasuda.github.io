@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Works — 言葉と写真</title>
+<meta name="description" content="エッセイ・コラム・フォトエッセイ 記事一覧">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ---- PAGE HEADER ---- */
+.page-header {
+  min-height: 40vh;
+  background: var(--ink);
+  display: flex; align-items: flex-end;
+  padding: 0 80px 80px;
+  position: relative; overflow: hidden;
+}
+.page-header::before {
+  content: 'Works';
+  position: absolute; right: 60px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-en); font-style: italic;
+  font-size: 200px; font-weight: 300;
+  color: rgba(255,255,255,0.03);
+  white-space: nowrap; user-select: none;
+}
+.page-header-inner h1 {
+  font-family: var(--font-jp);
+  font-size: 52px; font-weight: 300;
+  color: var(--washi); letter-spacing: 0.05em;
+  animation: slideUp 1s ease 0.3s both;
+}
+.page-header-inner .en {
+  font-family: var(--font-en); font-style: italic;
+  font-size: 14px; letter-spacing: 0.3em;
+  color: var(--gold); display: block; margin-top: 12px;
+  animation: slideUp 1s ease 0.5s both;
+}
+
+/* ---- FILTER TABS ---- */
+.filter-bar {
+  position: sticky; top: 80px; z-index: 50;
+  background: var(--washi);
+  border-bottom: 1px solid var(--washi-dark);
+  padding: 0 80px;
+}
+.filter-tabs {
+  display: flex; gap: 0;
+  max-width: 1200px; margin: 0 auto;
+}
+.filter-tab {
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.4em; color: var(--ink-light);
+  padding: 20px 28px;
+  border: none; background: none; cursor: none;
+  position: relative; transition: color 0.3s;
+}
+.filter-tab::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 2px; background: var(--gold);
+  transform: scaleX(0); transition: transform 0.4s ease;
+}
+.filter-tab.active { color: var(--ink); }
+.filter-tab.active::after { transform: scaleX(1); }
+
+/* ---- ARTICLE LIST ---- */
+.works-section {
+  padding: 80px 0 160px; position: relative; z-index: 2;
+}
+.works-list {
+  max-width: 900px; margin: 0 auto; padding: 0 80px;
+}
+.work-row {
+  display: grid; grid-template-columns: 80px 1fr auto;
+  align-items: baseline; gap: 32px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--washi-dark);
+  color: var(--ink);
+  transition: padding-left 0.4s ease;
+  position: relative;
+}
+.work-row::before {
+  content: ''; position: absolute;
+  left: -80px; right: -80px; top: 0; bottom: 0;
+  background: var(--washi-dark); opacity: 0;
+  transition: opacity 0.3s; pointer-events: none;
+}
+.work-row:hover { padding-left: 16px; }
+.work-row:hover::before { opacity: 0.5; }
+.work-row-num {
+  font-family: var(--font-en); font-size: 12px;
+  letter-spacing: 0.3em; color: var(--gold); opacity: 0.6;
+}
+.work-row-main {}
+.work-row-cat {
+  font-family: var(--font-en); font-style: italic;
+  font-size: 11px; letter-spacing: 0.3em;
+  color: var(--gold); margin-bottom: 10px; display: block;
+}
+.work-row-title {
+  font-family: var(--font-jp); font-size: 24px; font-weight: 400;
+  line-height: 1.5; margin-bottom: 12px;
+  transition: color 0.3s;
+}
+.work-row:hover .work-row-title { color: var(--ink-light); }
+.work-row-excerpt {
+  font-size: 12px; line-height: 1.9; color: var(--ink-light); opacity: 0.7;
+}
+.work-row-date {
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.2em; color: var(--gold); opacity: 0.6;
+  white-space: nowrap; align-self: start; padding-top: 6px;
+}
+.work-row-arrow {
+  position: absolute; right: 0; top: 50%;
+  transform: translateY(-50%) translateX(-10px);
+  font-family: var(--font-en); font-size: 18px; color: var(--gold);
+  opacity: 0; transition: opacity 0.3s, transform 0.3s;
+}
+.work-row:hover .work-row-arrow { opacity: 1; transform: translateY(-50%) translateX(0); }
+
+/* hidden by filter */
+.work-row.hidden { display: none; }
+
+@keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="v-line"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">言葉と写真<span>—</span>Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="works.html">Works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>記事一覧</h1>
+    <span class="en">All Works</span>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <div class="filter-tabs">
+    <button class="filter-tab active" data-cat="All">ALL</button>
+    <button class="filter-tab" data-cat="Essay">ESSAY</button>
+    <button class="filter-tab" data-cat="Column">COLUMN</button>
+    <button class="filter-tab" data-cat="Photo Essay">PHOTO ESSAY</button>
+  </div>
+</div>
+
+<!-- LIST -->
+<section class="works-section">
+  <div class="works-list" id="worksList"></div>
+</section>
+
+<footer>
+  <div class="footer-logo">言葉と写真</div>
+  <div class="footer-copy">© 2024 Shizuka Yamada. All rights reserved.</div>
+</footer>
+
+<script src="js/articles.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const list = document.getElementById('worksList');
+
+  // Render all articles
+  getAllArticles().forEach((a, i) => {
+    list.innerHTML += `
+      <a class="work-row reveal" href="article.html?slug=${a.slug}" data-cat="${a.category}"
+         style="transition-delay:${i*0.06}s; display:grid">
+        <span class="work-row-num">${String(i+1).padStart(2,'0')}</span>
+        <div class="work-row-main">
+          <span class="work-row-cat">${a.category}</span>
+          <div class="work-row-title">${a.title}</div>
+          <div class="work-row-excerpt">${a.excerpt}</div>
+        </div>
+        <span class="work-row-date">${a.date}</span>
+        <span class="work-row-arrow">→</span>
+      </a>`;
+  });
+
+  initReveal();
+
+  // Filter
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const cat = tab.dataset.cat;
+      document.querySelectorAll('.work-row').forEach(row => {
+        if (cat === 'All' || row.dataset.cat === cat) {
+          row.classList.remove('hidden');
+          row.style.display = 'grid';
+        } else {
+          row.classList.add('hidden');
+          row.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>

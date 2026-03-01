@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>記事 — 言葉と写真</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ---- ARTICLE LAYOUT ---- */
+body { background: var(--washi); }
+
+.article-hero {
+  min-height: 55vh;
+  background: var(--ink);
+  display: flex; align-items: flex-end;
+  padding: 0; position: relative; overflow: hidden;
+}
+.article-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 80% at 30% 60%, #3a3028 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, #201a14 0%, transparent 60%),
+    linear-gradient(150deg, #1a1510 0%, #2a201a 50%, #1a1510 100%);
+}
+.article-hero-kanji {
+  position: absolute; right: 80px; bottom: 40px;
+  font-family: var(--font-jp); font-size: 200px;
+  color: rgba(255,255,255,0.025);
+  writing-mode: vertical-rl; line-height: 1;
+  user-select: none;
+}
+.article-hero-content {
+  position: relative; z-index: 2;
+  max-width: 800px; padding: 0 80px 80px;
+  animation: slideUp 1s ease 0.2s both;
+}
+.article-hero-cat {
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.5em; color: var(--gold);
+  margin-bottom: 24px; display: block;
+}
+.article-hero-title {
+  font-family: var(--font-jp); font-size: 48px; font-weight: 400;
+  color: var(--washi); line-height: 1.5;
+}
+.article-hero-date {
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.3em; color: var(--gold);
+  opacity: 0.7; margin-top: 24px; display: block;
+}
+
+/* ---- ARTICLE BODY ---- */
+.article-body-wrap {
+  max-width: 720px; margin: 0 auto;
+  padding: 100px 80px 160px;
+}
+.article-body {
+  font-size: 16px; line-height: 2.8;
+  color: var(--ink-light);
+}
+.article-body p + p { margin-top: 40px; }
+
+/* ---- ARTICLE FOOTER ---- */
+.article-footer {
+  max-width: 720px; margin: 0 auto;
+  padding: 0 80px 120px;
+  border-top: 1px solid var(--washi-dark);
+  padding-top: 60px;
+}
+.back-link {
+  font-family: var(--font-en); font-size: 12px;
+  letter-spacing: 0.3em; color: var(--gold);
+  display: inline-flex; align-items: center; gap: 12px;
+  transition: gap 0.3s;
+}
+.back-link:hover { gap: 20px; }
+
+/* ---- NEXT ARTICLE ---- */
+.next-article {
+  margin-top: 60px; padding-top: 60px;
+  border-top: 1px solid var(--washi-dark);
+}
+.next-label {
+  font-family: var(--font-en); font-size: 10px;
+  letter-spacing: 0.5em; color: var(--gold);
+  margin-bottom: 20px; display: block;
+}
+.next-title {
+  font-family: var(--font-jp); font-size: 24px; font-weight: 400;
+  color: var(--ink); line-height: 1.5;
+  display: inline-block;
+  transition: opacity 0.3s;
+}
+.next-title:hover { opacity: 0.6; }
+
+@keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="v-line"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">言葉と写真<span>—</span>Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="works.html">Works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<!-- ARTICLE HERO -->
+<div class="article-hero" id="articleHero">
+  <div class="article-hero-bg"></div>
+  <div class="article-hero-kanji" id="heroKanji">言</div>
+  <div class="article-hero-content">
+    <span class="article-hero-cat" id="heroCat"></span>
+    <h1 class="article-hero-title" id="heroTitle">読み込み中…</h1>
+    <span class="article-hero-date" id="heroDate"></span>
+  </div>
+</div>
+
+<!-- ARTICLE BODY -->
+<main class="article-body-wrap">
+  <div class="article-body" id="articleBody"></div>
+</main>
+
+<!-- ARTICLE FOOTER -->
+<div class="article-footer">
+  <a href="works.html" class="back-link">← 記事一覧に戻る</a>
+  <div class="next-article" id="nextArticle" style="display:none">
+    <span class="next-label">NEXT ARTICLE</span>
+    <a class="next-title" id="nextLink" href="#"></a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">言葉と写真</div>
+  <div class="footer-copy">© 2024 Shizuka Yamada. All rights reserved.</div>
+</footer>
+
+<script src="js/articles.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // URLからslugを取得
+  const params = new URLSearchParams(window.location.search);
+  const slug   = params.get('slug');
+  const article = slug ? getArticleBySlug(slug) : null;
+
+  if (!article) {
+    document.getElementById('heroTitle').textContent = '記事が見つかりませんでした';
+    document.getElementById('articleBody').innerHTML = '<p>URLをご確認ください。</p>';
+    return;
+  }
+
+  // ページタイトル
+  document.title = `${article.title} — 言葉と写真`;
+
+  // Hero
+  document.getElementById('heroCat').textContent   = article.category;
+  document.getElementById('heroTitle').textContent = article.title;
+  document.getElementById('heroDate').textContent  = article.date;
+  document.getElementById('heroKanji').textContent = article.title[0]; // 1文字目を背景に
+
+  // Body
+  document.getElementById('articleBody').innerHTML =
+    article.body.map(p => `<p>${p}</p>`).join('');
+
+  // Next article
+  const all  = getAllArticles();
+  const idx  = all.findIndex(a => a.slug === slug);
+  const next = all[idx + 1] || all[0]; // 最後なら最初に戻る
+  if (next && next.slug !== slug) {
+    const nextBlock = document.getElementById('nextArticle');
+    const nextLink  = document.getElementById('nextLink');
+    nextBlock.style.display = 'block';
+    nextLink.textContent = next.title;
+    nextLink.href        = `article.html?slug=${next.slug}`;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>言葉と写真 — Portfolio</title>
+<meta name="description" content="写真と言葉が交わる場所。エッセイ、コラム、フォトエッセイを綴るポートフォリオサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.hero-visual {
+  position: relative;
+  background: var(--ink);
+  overflow: hidden;
+}
+.hero-photo-art {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 40% 60%, #4a3f35 0%, transparent 70%),
+    radial-gradient(ellipse 80% 40% at 70% 20%, #2d2520 0%, transparent 60%),
+    linear-gradient(160deg, #1a1510 0%, #2e2418 40%, #1a1510 100%);
+}
+.ink-circle {
+  position: absolute;
+  border-radius: 50%;
+  animation: breathe 8s ease-in-out infinite;
+}
+.ink-circle:nth-child(1) {
+  width: 300px; height: 300px;
+  border: 1px solid var(--gold);
+  top: 30%; left: 20%;
+  opacity: 0.12;
+}
+.ink-circle:nth-child(2) {
+  width: 180px; height: 180px;
+  border: 1px solid #fff;
+  top: 50%; left: 45%;
+  opacity: 0.04;
+  animation-delay: 2s;
+}
+@keyframes breathe {
+  0%,100% { transform: scale(1); opacity: 0.12; }
+  50%      { transform: scale(1.05); opacity: 0.22; }
+}
+.hero-kanji {
+  position: absolute; bottom: 60px; right: 40px;
+  font-family: var(--font-jp);
+  font-size: 120px;
+  color: rgba(255,255,255,0.04);
+  writing-mode: vertical-rl;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  user-select: none;
+}
+.hero-stamp {
+  position: absolute; top: 48px; left: 48px;
+  width: 52px; height: 52px;
+  border: 2px solid var(--red);
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 2s ease 0.5s both;
+}
+.hero-stamp::before {
+  content: '記';
+  font-family: var(--font-jp);
+  font-size: 22px;
+  color: var(--red);
+}
+.hero-content {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 80px 80px;
+  position: relative;
+}
+.hero-eyebrow {
+  font-family: var(--font-en);
+  font-size: 11px;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  margin-bottom: 32px;
+  animation: slideUp 1s ease 0.3s both;
+}
+.hero-title {
+  font-family: var(--font-jp);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 40px;
+  animation: slideUp 1s ease 0.5s both;
+}
+.hero-title .jp { font-size: 64px; display: block; letter-spacing: 0.05em; }
+.hero-title .en {
+  font-family: var(--font-en);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  display: block;
+  margin-top: 16px;
+}
+.hero-desc {
+  font-size: 13px; line-height: 2.2; color: var(--ink-light);
+  max-width: 320px;
+  border-left: 1px solid var(--gold);
+  padding-left: 24px;
+  animation: slideUp 1s ease 0.7s both;
+}
+.hero-scroll {
+  position: absolute; bottom: 48px; left: 80px;
+  display: flex; align-items: center; gap: 16px;
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.3em; color: var(--gold);
+  animation: fadeIn 2s ease 1.5s both;
+}
+.scroll-line {
+  width: 60px; height: 1px; background: var(--gold);
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: ''; position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%; background: var(--washi);
+  animation: scanLine 2s ease-in-out infinite;
+}
+@keyframes scanLine { 0%{left:-100%} 100%{left:100%} }
+@keyframes slideUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+
+/* ---- FEATURED ESSAYS ---- */
+#essays { padding: 120px 0; position: relative; z-index: 2; }
+.essays-header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 72px;
+}
+.essays-title-jp {
+  font-family: var(--font-jp); font-size: 42px; font-weight: 400;
+}
+.essays-title-en {
+  font-family: var(--font-en); font-style: italic;
+  font-size: 14px; letter-spacing: 0.2em; color: var(--gold);
+}
+.see-all {
+  font-family: var(--font-en); font-size: 12px;
+  letter-spacing: 0.3em; color: var(--gold);
+  display: flex; align-items: center; gap: 10px;
+  transition: gap 0.3s;
+}
+.see-all:hover { gap: 18px; }
+
+.essays-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.essay-card {
+  position: relative;
+  background: var(--washi-dark);
+  padding: 48px 36px;
+  overflow: hidden;
+  transition: background 0.4s ease;
+  display: block;
+}
+.essay-card::before {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 2px; background: var(--gold);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.essay-card:hover { background: #ede6d6; }
+.essay-card:hover::before { transform: scaleX(1); }
+.essay-card-num {
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.4em; color: var(--gold); margin-bottom: 24px; display: block;
+}
+.essay-card-title {
+  font-family: var(--font-jp); font-size: 20px; font-weight: 500;
+  line-height: 1.7; color: var(--ink); margin-bottom: 20px;
+}
+.essay-card-excerpt {
+  font-size: 12px; line-height: 2; color: var(--ink-light); opacity: 0.8;
+}
+.essay-card-arrow {
+  position: absolute; bottom: 28px; right: 28px;
+  font-family: var(--font-en); font-size: 20px; color: var(--gold);
+  opacity: 0; transform: translateX(-10px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.essay-card:hover .essay-card-arrow { opacity: 1; transform: translateX(0); }
+
+/* ---- RANDOM TITLES ---- */
+#random-titles {
+  background: var(--ink); color: var(--washi);
+  padding: 120px 0; position: relative; overflow: hidden;
+}
+#random-titles::before {
+  content: '言'; position: absolute; right: -40px; top: -60px;
+  font-family: var(--font-jp); font-size: 400px;
+  color: rgba(255,255,255,0.02); line-height: 1; user-select: none;
+}
+.random-eyebrow {
+  font-family: var(--font-en); font-size: 11px;
+  letter-spacing: 0.5em; color: var(--gold); margin-bottom: 20px;
+}
+.random-title {
+  font-family: var(--font-jp); font-size: 36px; font-weight: 300;
+  color: var(--washi); line-height: 1.8; margin-bottom: 72px;
+}
+.titles-container { display: flex; flex-direction: column; }
+.title-item {
+  display: flex; align-items: baseline; gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(245,240,232,0.1);
+  color: var(--washi);
+  transition: padding-left 0.4s ease;
+  position: relative; overflow: hidden;
+}
+.title-item::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(168,146,106,0.05);
+  transform: translateX(-100%); transition: transform 0.5s ease;
+}
+.title-item:hover { padding-left: 20px; }
+.title-item:hover::after { transform: translateX(0); }
+.title-num {
+  font-family: var(--font-en); font-size: 12px;
+  letter-spacing: 0.3em; color: var(--gold); opacity: 0.6; min-width: 40px;
+}
+.title-text { font-family: var(--font-jp); font-size: 22px; font-weight: 400; flex: 1; line-height: 1.5; }
+.title-cat  { font-family: var(--font-en); font-style: italic; font-size: 12px; letter-spacing: 0.2em; color: var(--gold); opacity: 0.7; }
+.title-arrow {
+  font-size: 14px; color: var(--gold); opacity: 0;
+  transform: translateX(-8px); transition: opacity 0.3s, transform 0.3s;
+}
+.title-item:hover .title-arrow { opacity: 1; transform: translateX(0); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="v-line"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">言葉と写真<span>—</span>Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="works.html">Works</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-visual">
+    <div class="hero-photo-art"></div>
+    <div class="ink-circle"></div>
+    <div class="ink-circle"></div>
+    <div class="hero-kanji">光影言葉</div>
+    <div class="hero-stamp"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">WORDS × PHOTOGRAPHY</div>
+    <h1 class="hero-title">
+      <span class="jp">言葉と写真</span>
+      <span class="en">The space between</span>
+    </h1>
+    <p class="hero-desc">
+      光と影の狭間に宿る言葉たち。<br>
+      シャッターの音と、ペンの走りが交わる場所で、<br>
+      私はひとつの世界を紡ぎ続けている。
+    </p>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      SCROLL
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED ESSAYS -->
+<section id="essays">
+  <div class="section-inner" style="position:relative">
+    <div class="essays-header">
+      <h2 class="essays-title-jp">最近の記事</h2>
+      <div style="display:flex;align-items:center;gap:40px">
+        <span class="essays-title-en">Recent Works</span>
+        <a href="works.html" class="see-all">すべて見る →</a>
+      </div>
+    </div>
+    <div class="essays-grid" id="essaysGrid"></div>
+  </div>
+</section>
+
+<!-- RANDOM TITLES -->
+<section id="random-titles">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="random-eyebrow">ARCHIVE</div>
+      <h2 class="random-title">すべての言葉から、<br>今日あなたに届く一篇を。</h2>
+    </div>
+    <div class="titles-container" id="titlesContainer"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">言葉と写真</div>
+  <div class="footer-copy">© 2024 Shizuka Yamada. All rights reserved.</div>
+</footer>
+
+<script src="js/articles.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Featured cards
+  const grid = document.getElementById('essaysGrid');
+  getFeaturedArticles().forEach((a, i) => {
+    grid.innerHTML += `
+      <a class="essay-card reveal stagger-${i+1}" href="article.html?slug=${a.slug}">
+        <span class="essay-card-num">No.${String(a.id).padStart(2,'0')}</span>
+        <div class="essay-card-title">${a.title}</div>
+        <div class="essay-card-excerpt">${a.excerpt}</div>
+        <span class="essay-card-arrow">→</span>
+      </a>`;
+  });
+
+  // Random titles
+  const container = document.getElementById('titlesContainer');
+  getShuffledArticles().forEach((a, i) => {
+    container.innerHTML += `
+      <a class="title-item reveal" href="article.html?slug=${a.slug}" style="transition-delay:${i*0.07}s">
+        <span class="title-num">${String(i+1).padStart(2,'0')}</span>
+        <span class="title-text">${a.title}</span>
+        <span class="title-cat">${a.category}</span>
+        <span class="title-arrow">→</span>
+      </a>`;
+  });
+
+  initReveal();
+});
+</script>
+</body>
+</html>
